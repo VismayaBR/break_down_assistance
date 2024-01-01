@@ -11,7 +11,9 @@ class MechanicStatusTile extends StatelessWidget {
       required this.name,
       required this.experience,
       required this.work,
-      required this.status, required this.click});
+      required this.status, 
+      required this.click
+      });
 
   final String image;
   final String name;

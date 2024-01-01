@@ -50,7 +50,7 @@ class UserList extends StatelessWidget {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Location: $name"),
+                        Text("Name: $name"),
                         Text("Mobile: $phone"),
                         Text("Email: $email"),
                       ],

@@ -6,9 +6,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../constants/color.dart';
 import '../../widgets/apptext.dart';
 
-class UserNotification extends StatelessWidget {
+class UserNotification extends StatefulWidget {
   const UserNotification({super.key});
 
+  @override
+  State<UserNotification> createState() => _UserNotificationState();
+}
+
+class _UserNotificationState extends State<UserNotification> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +46,7 @@ class UserNotification extends StatelessWidget {
           stream: FirebaseFirestore.instance.collection('notifications').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator(); // Loading indicator while data is being fetched
+              return Center(child: CircularProgressIndicator()); // Loading indicator while data is being fetched
             }
 
             if (snapshot.hasError) {

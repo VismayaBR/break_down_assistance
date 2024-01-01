@@ -114,7 +114,7 @@ class _RatingScreenState extends State<RatingScreen> {
             direction: Axis.horizontal,
             allowHalfRating: true,
             itemCount: 5,
-            itemSize: 55,
+            itemSize: 45,
             unratedColor: customBalck,
             itemPadding: const EdgeInsets.symmetric(horizontal: 1),
             itemBuilder: (context, _) => const Icon(

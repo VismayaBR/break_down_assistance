@@ -214,7 +214,8 @@ class _MechSignupState extends State<MechSignup> {
       'workshop': workshop.text,
       'password': password.text,
       'status':'0',
-      'location':location.text
+      'location':location.text,
+      
     });
     Navigator.pop(context);
     // username.clear();

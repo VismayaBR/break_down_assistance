@@ -1,16 +1,26 @@
+import 'package:break_down_assistance/Screens/user/UserHome.dart';
 import 'package:break_down_assistance/constants/color.dart';
 import 'package:break_down_assistance/widgets/apptext.dart';
 import 'package:break_down_assistance/widgets/customButton.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Rating.dart';
 
-class MechanicBill extends StatelessWidget {
-  MechanicBill({super.key});
+class MechanicBill extends StatefulWidget {
+  String amt;
+  String r_id;
+  MechanicBill({super.key, required this.amt, required this.r_id});
 
-  final amount = TextEditingController();
+  @override
+  State<MechanicBill> createState() => _MechanicBillState();
+}
+
+class _MechanicBillState extends State<MechanicBill> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +143,8 @@ class MechanicBill extends StatelessWidget {
               child: SizedBox(
                   height: 43.h,
                   child: TextFormField(
-                    controller: amount,
+                    
+                     controller: TextEditingController(text: widget.amt),
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.currency_rupee),
@@ -153,7 +164,35 @@ class MechanicBill extends StatelessWidget {
                   btnname: "Payment",
                   btntheam: customBlue,
                   textcolor: white,
-                  click: () {}),
+                  click: () async {
+
+                       CollectionReference payments =
+                        FirebaseFirestore.instance.collection('mechanic_payments');
+
+                   
+                    SharedPreferences spref = await SharedPreferences.getInstance();
+                    var userId = spref.getString('user_id');
+                    
+
+                    try {
+                      await payments.add({
+                        'user_id': userId, // ID of the mechanic you are paying
+                        'amount': double.parse(widget.amt), // Parse the amount to double if it's not already
+                        'rating': '4',
+                        'request_id':widget.r_id // Add a timestamp for sorting or tracking
+                      });
+
+                      // Handle success, e.g., show a success message or navigate to another screen
+                      print('Payment successful');
+
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
+                        return UserHome();
+                      }));   } catch (e) {
+                      // Handle errors, e.g., show an error message
+                      print('Error making payment: $e');
+                    }
+
+                  }),
             )
           ]),
         ),
