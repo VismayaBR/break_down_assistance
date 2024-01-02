@@ -8,7 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Rating.dart';
 
 class FaildScreen extends StatelessWidget {
-  FaildScreen({super.key});
+  String reason;
+  FaildScreen({super.key, required this.reason});
 
   final rject_reason = TextEditingController();
 
@@ -128,8 +129,9 @@ class FaildScreen extends StatelessWidget {
               height: 15.h,
             ),
             TextFormField(
+              readOnly: true,
               maxLines: 5,
-              controller: rject_reason,
+              controller: TextEditingController(text: reason),
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderSide: const BorderSide(color: customBalck),
@@ -144,7 +146,9 @@ class FaildScreen extends StatelessWidget {
                   btnname: "Ok",
                   btntheam: customBlue,
                   textcolor: white,
-                  click: () {}),
+                  click: () {
+                    Navigator.pop(context);
+                  }),
             )
           ]),
         ),

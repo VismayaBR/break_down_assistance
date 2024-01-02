@@ -61,11 +61,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 final payData = docs[index].data() as Map<String, dynamic>;
 
                 return PaymentTile(
-                  name: payData['customer_id']??'',
+                  customerId: payData['customer_id']??'',
                   date: payData['date'],
                   amount: payData['amount']??'',
-                  // service: payData['service']??'',
-                  mechanic_name: payData['mech_id']??"",
+                  service: payData['issue']??'',
+                  mechanicId: payData['mech_id']??"",
                   // mechanic_name: '',
                 );
               },

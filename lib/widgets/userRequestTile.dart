@@ -1,3 +1,4 @@
+import 'package:break_down_assistance/Screens/user/FaildReson.dart';
 import 'package:break_down_assistance/Screens/user/MechanicBill.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,8 @@ class UserRequestTile extends StatelessWidget {
     required this.issue,
     required this.status,
     required this.amount, 
-    required this.r_id,
+    required this.r_id, 
+    required this.reason,
   });
 
   final String name;
@@ -24,6 +26,7 @@ class UserRequestTile extends StatelessWidget {
   final String status;
   final String amount;
   final String r_id;
+  final String reason;
 
   @override
   Widget build(BuildContext context) {
@@ -155,23 +158,30 @@ class UserRequestTile extends StatelessWidget {
               ),
             ),
             if (status == '4')
-            SizedBox(
-              width: 150.w,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 20),
-                child: Container(
-                    height: 30,
-                    width: 110.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color:Colors.red),
-                    child: const Center(
-                      child: AppText(
-                          text: "Failed",
-                          weight: FontWeight.w400,
-                          size: 14,
-                          textcolor: white),
-                    )),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                  return FaildScreen(reason:reason);
+                }));
+              },
+              child: SizedBox(
+                width: 150.w,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 20),
+                  child: Container(
+                      height: 30,
+                      width: 110.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color:Colors.red),
+                      child: const Center(
+                        child: AppText(
+                            text: "Failed",
+                            weight: FontWeight.w400,
+                            size: 14,
+                            textcolor: white),
+                      )),
+                ),
               ),
             ),
             if (status == '5')

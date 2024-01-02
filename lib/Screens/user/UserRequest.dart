@@ -37,7 +37,8 @@ class UserRequest extends StatelessWidget {
                 issue: request['issue'] ?? "",
                 status: request['status'] ?? "",
                 amount: request['amount'] ?? "",
-                r_id: requests[index].id
+                r_id: requests[index].id,
+                reason: request['reason'] ?? ""
 
               );
             },
