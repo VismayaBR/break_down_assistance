@@ -10,14 +10,14 @@ class PaymentTile extends StatelessWidget {
     required this.name,
     required this.date,
     required this.amount,
-    required this.service,
+    // required this.service,
     required this.mechanic_name,
   });
 
   final String name;
   final String date;
   final String amount;
-  final String service;
+  // final String service;
   final String mechanic_name;
 
   @override
@@ -55,11 +55,7 @@ class PaymentTile extends StatelessWidget {
                     weight: FontWeight.w500,
                     size: 14,
                     textcolor: customBalck),
-                AppText(
-                    text: service,
-                    weight: FontWeight.w400,
-                    size: 14,
-                    textcolor: customBalck),
+              
                 AppText(
                     text: mechanic_name,
                     weight: FontWeight.w400,

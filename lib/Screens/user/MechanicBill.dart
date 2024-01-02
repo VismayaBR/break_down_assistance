@@ -12,16 +12,14 @@ import 'Rating.dart';
 
 class MechanicBill extends StatefulWidget {
   String amt;
-  String r_id;
-  MechanicBill({super.key, required this.amt, required this.r_id});
+  String rid;
+  MechanicBill({super.key, required this.amt, required this.rid});
 
   @override
   State<MechanicBill> createState() => _MechanicBillState();
 }
 
 class _MechanicBillState extends State<MechanicBill> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,8 +141,8 @@ class _MechanicBillState extends State<MechanicBill> {
               child: SizedBox(
                   height: 43.h,
                   child: TextFormField(
-                    
-                     controller: TextEditingController(text: widget.amt),
+                    readOnly: true,
+                    controller: TextEditingController(text: widget.amt),
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.currency_rupee),
@@ -165,33 +163,38 @@ class _MechanicBillState extends State<MechanicBill> {
                   btntheam: customBlue,
                   textcolor: white,
                   click: () async {
+                    CollectionReference rating =
+                        FirebaseFirestore.instance.collection('rating');
 
-                       CollectionReference payments =
-                        FirebaseFirestore.instance.collection('mechanic_payments');
+                    await FirebaseFirestore.instance
+                        .collection('mechrequest')
+                        .doc(widget.rid)
+                        .update({'status': "5"});
 
-                   
-                    SharedPreferences spref = await SharedPreferences.getInstance();
+                    SharedPreferences spref =
+                        await SharedPreferences.getInstance();
                     var userId = spref.getString('user_id');
-                    
 
                     try {
-                      await payments.add({
+                      await rating.add({
                         'user_id': userId, // ID of the mechanic you are paying
-                        'amount': double.parse(widget.amt), // Parse the amount to double if it's not already
+                        // 'amount': double.parse(widget.amt), // Parse the amount to double if it's not already
                         'rating': '4',
-                        'request_id':widget.r_id // Add a timestamp for sorting or tracking
+                        'request_id': widget.rid
+                             // Add a timestamp for sorting or tracking
                       });
 
                       // Handle success, e.g., show a success message or navigate to another screen
                       print('Payment successful');
 
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (ctx) {
                         return UserHome();
-                      }));   } catch (e) {
+                      }));
+                    } catch (e) {
                       // Handle errors, e.g., show an error message
                       print('Error making payment: $e');
                     }
-
                   }),
             )
           ]),

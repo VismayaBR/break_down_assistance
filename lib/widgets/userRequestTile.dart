@@ -135,7 +135,7 @@ class UserRequestTile extends StatelessWidget {
                   onTap: () {
                     print("Widget Amount: ${amount}");
                     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-                      return MechanicBill(amt: amount,r_id:r_id);
+                      return MechanicBill(amt: amount,rid:r_id);
                     }));
                   },
                   child: Container(
@@ -152,6 +152,46 @@ class UserRequestTile extends StatelessWidget {
                             textcolor: white),
                       )),
                 ),
+              ),
+            ),
+            if (status == '4')
+            SizedBox(
+              width: 150.w,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 20),
+                child: Container(
+                    height: 30,
+                    width: 110.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color:Colors.red),
+                    child: const Center(
+                      child: AppText(
+                          text: "Failed",
+                          weight: FontWeight.w400,
+                          size: 14,
+                          textcolor: white),
+                    )),
+              ),
+            ),
+            if (status == '5')
+            SizedBox(
+              width: 150.w,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 20),
+                child: Container(
+                    height: 30,
+                    width: 110.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color.fromARGB(255, 9, 189, 15)),
+                    child: const Center(
+                      child: AppText(
+                          text: "Success",
+                          weight: FontWeight.w400,
+                          size: 14,
+                          textcolor: white),
+                    )),
               ),
             ),
         ]),

@@ -58,7 +58,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
       'date':dt1,
       'time':tm1,
       'status':'0',
-      'amount':'0'
+      'amount':'0',
+      'reason':'0',
+      
 
       // Add other fields as needed
     };

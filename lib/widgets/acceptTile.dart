@@ -1,3 +1,4 @@
+import 'package:break_down_assistance/Screens/mecanic/AcceptScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,6 +15,7 @@ class AcceptTile extends StatelessWidget {
     required this.time,
     required this.place,
     required this.status,
+    required this.r_id,
   });
 
   final String image;
@@ -22,7 +24,8 @@ class AcceptTile extends StatelessWidget {
   final String date;
   final String time;
   final String place;
-  final bool status;
+  final String status;
+  final String r_id;
 
   @override
   Widget build(BuildContext context) {
@@ -87,20 +90,106 @@ class AcceptTile extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              height: 40.h,
-              width: 130.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12).r,
-                  color: status == true ? Colors.green : Colors.red),
-              child: Center(
-                  child: AppText(
-                      text: status == true
-                          ? "Payment success"
-                          : "Payment pending",
-                      weight: FontWeight.w400,
-                      size: 12,
-                      textcolor: white)),
+
+            if(status=='1')
+            
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AcceptScreen(
+                        rid: r_id,
+                        date: date,
+                        time: time,
+                        place: place,
+                        issue: issue
+                        ),
+                  ),
+                );
+              },
+              child: Container(
+                height: 40.h,
+                width: 100.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12).r,
+                    color: status == '1' ? Color.fromARGB(255, 59, 186, 64) :status == '3'? Color.fromARGB(255, 83, 222, 87):const Color.fromARGB(255, 1, 83, 4),),
+                child: Center(
+                    child: AppText(
+                        text: status == '1' ? "Payment" :status=='3'? "completed":"success",
+                        weight: FontWeight.w400,
+                        size: 12,
+                        textcolor: white)
+                        ),
+              ),
+            ),
+             if(status=='3')
+            
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => AcceptScreen(
+            //             rid: r_id,
+            //             date: date,
+            //             time: time,
+            //             place: place,
+            //             issue: issue
+            //             ),
+            //       ),
+            //     );
+            //   },
+               Container(
+                height: 40.h,
+                width: 100.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12).r,
+                    color: status == '1' ? Color.fromARGB(255, 59, 186, 64) :status == '3'? Color.fromARGB(255, 83, 222, 87):const Color.fromARGB(255, 1, 83, 4),),
+                child: Center(
+                    child: AppText(
+                        text: status == '1' ? "Payment" :status=='3'? "completed":"success",
+                        weight: FontWeight.w400,
+                        size: 12,
+                        textcolor: white)
+                        ),
+              ),
+            
+             if(status=='4')
+            
+           
+              Container(
+                height: 40.h, 
+                width: 100.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12).r,
+                    color: status == '1' ? Color.fromARGB(255, 59, 186, 64) :status == '3'? Color.fromARGB(255, 83, 222, 87):status == '4' ? Colors.red:const Color.fromARGB(255, 1, 83, 4),),
+                child: Center(
+                    child: AppText(
+                        text: status == '1' ? "Payment" :status=='3'? "completed":status=='4'?"Failed":"success",
+                        weight: FontWeight.w400,
+                        size: 12,
+                        textcolor: white)
+                        ),
+              
+            ),
+             if(status=='5')
+            
+            
+              Container(
+                height: 40.h,
+                width: 100.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12).r,
+                    color: status == '1' ? Color.fromARGB(255, 59, 186, 64) :status == '3'? Color.fromARGB(255, 83, 222, 87):const Color.fromARGB(255, 1, 83, 4),),
+                child: Center(
+                    child: AppText(
+                        text: status == '1' ? "Payment" :status=='3'? "completed" :status=='4'?"Failed":"success",
+                        weight: FontWeight.w400,
+                        size: 12,
+                        textcolor: white)
+                        ),
+              
             )
           ]),
         ),
