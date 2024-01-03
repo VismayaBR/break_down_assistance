@@ -13,7 +13,8 @@ import 'Rating.dart';
 class MechanicBill extends StatefulWidget {
   String amt;
   String rid;
-  MechanicBill({super.key, required this.amt, required this.rid});
+  String mech_id;
+  MechanicBill({super.key, required this.amt, required this.rid, required this.mech_id});
 
   @override
   State<MechanicBill> createState() => _MechanicBillState();
@@ -108,11 +109,13 @@ class _MechanicBillState extends State<MechanicBill> {
                   width: 10.w,
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
+                    SharedPreferences spref = await SharedPreferences.getInstance();
+                    var Id = spref.getString('user_id');
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RatingScreen(),
+                          builder: (context) => RatingScreen(req_id:widget.rid,user_id:Id.toString(),mech_id:widget.mech_id),
                         ));
                   },
                   child: const Icon(
@@ -163,9 +166,7 @@ class _MechanicBillState extends State<MechanicBill> {
                   btntheam: customBlue,
                   textcolor: white,
                   click: () async {
-                    CollectionReference rating =
-                        FirebaseFirestore.instance.collection('rating');
-
+                  
                     await FirebaseFirestore.instance
                         .collection('mechrequest')
                         .doc(widget.rid)
@@ -176,13 +177,7 @@ class _MechanicBillState extends State<MechanicBill> {
                     var userId = spref.getString('user_id');
 
                     try {
-                      await rating.add({
-                        'user_id': userId, // ID of the mechanic you are paying
-                        // 'amount': double.parse(widget.amt), // Parse the amount to double if it's not already
-                        'rating': '4',
-                        'request_id': widget.rid
-                             // Add a timestamp for sorting or tracking
-                      });
+                      
 
                       // Handle success, e.g., show a success message or navigate to another screen
                       print('Payment successful');

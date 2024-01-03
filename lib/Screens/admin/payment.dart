@@ -1,3 +1,5 @@
+import 'package:break_down_assistance/Screens/admin/adminLogin.dart';
+import 'package:break_down_assistance/Screens/common/Log.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,10 +30,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CircleAvatar(
-          radius: 30.r,
-          backgroundImage: const AssetImage("assets/admin.png"),
-        ),
+                 actions: [IconButton(onPressed: (){
+                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
+              return Login();
+            }));
+                 }, icon: Icon(Icons.logout_rounded))],
+
       ),
       backgroundColor: lightBlue,
       body: Padding(

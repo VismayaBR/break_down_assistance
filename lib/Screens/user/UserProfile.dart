@@ -6,11 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserProfile extends StatelessWidget {
+class UserProfile extends StatefulWidget {
   UserProfile({Key? key}) : super(key: key);
 
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
   var name = TextEditingController();
+
   var phone = TextEditingController();
+
   var email = TextEditingController();
 
   Future<void> getData() async {
@@ -44,13 +51,10 @@ class UserProfile extends StatelessWidget {
               return Column(
                 children: [
                   SizedBox(height: 100.h),
-                  CircleAvatar(
-                    radius: 50.r,
-                    backgroundImage: const AssetImage("assets/admin.png"),
-                  ),
+                 Icon(Icons.account_circle_outlined,size: 60,),
                   SizedBox(height: 10.h),
-                  const AppText(
-                    text: "Name",
+                   AppText(
+                    text: name.text,
                     weight: FontWeight.w500,
                     size: 10,
                     textcolor: Colors.black,

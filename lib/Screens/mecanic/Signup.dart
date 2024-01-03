@@ -16,6 +16,7 @@ class MechSignup extends StatefulWidget {
 class _MechSignupState extends State<MechSignup> {
   @override
   final username = TextEditingController();
+  final service = TextEditingController();
   final phone = TextEditingController();
   final email = TextEditingController();
   final experience = TextEditingController();
@@ -101,11 +102,21 @@ class _MechSignupState extends State<MechSignup> {
                       }),
                       CustomTextField(
                       hint: "Enter Location",
-                      controller: username,
+                      controller: location,
                       validator: (value) {
                         if (value!.isEmpty || value == null) {
                           // validator.........
                           return "enter username";
+                        }
+                      }),
+
+                       CustomTextField(
+                      hint: "Enter Service name",
+                      controller: service,
+                      validator: (value) {
+                        if (value!.isEmpty || value == null) {
+                          // validator.........
+                          return "enter Service";
                         }
                       }),
                   const Align(
@@ -215,6 +226,7 @@ class _MechSignupState extends State<MechSignup> {
       'password': password.text,
       'status':'0',
       'location':location.text,
+      'service':service.text
       
     });
     Navigator.pop(context);

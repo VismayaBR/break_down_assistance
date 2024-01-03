@@ -24,10 +24,10 @@ class RatingTile extends StatefulWidget {
   final String place;
 
   @override
-  State<RatingTile> createState() => _RatingTaleState();
+  State<RatingTile> createState() => _RatingTileState();
 }
 
-class _RatingTaleState extends State<RatingTile> {
+class _RatingTileState extends State<RatingTile> {
   double rate = 0;
 
   @override
@@ -35,7 +35,7 @@ class _RatingTaleState extends State<RatingTile> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10).r,
       child: Container(
-        height: 150.h,
+        height: 100.h,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12).r,
@@ -43,64 +43,36 @@ class _RatingTaleState extends State<RatingTile> {
         ),
         child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10).r,
-          child: Row(children: [
-            SizedBox(
-              width: 100.h,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 35.r,
-                    backgroundImage: AssetImage(widget.image),
-                  ),
-                  AppText(
-                      text: widget.name,
-                      weight: FontWeight.w400,
-                      size: 16,
-                      textcolor: customBalck)
-                ],
-              ),
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+           
             SizedBox(
               width: 140,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AppText(
-                        text: widget.work,
+                        text: widget.name,
                         weight: FontWeight.w400,
                         size: 16,
                         textcolor: customBalck),
-                    AppText(
-                        text: widget.date,
-                        weight: FontWeight.w400,
-                        size: 16,
-                        textcolor: customBalck),
-                    AppText(
-                        text: widget.time,
-                        weight: FontWeight.w400,
-                        size: 16,
-                        textcolor: customBalck),
-                    AppText(
-                        text: widget.place,
-                        weight: FontWeight.w400,
-                        size: 16,
-                        textcolor: customBalck),
-                  ]),
-            ),
-            Expanded(
-                child: SizedBox(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
                     const AppText(
                         text: "Rating",
                         weight: FontWeight.w400,
                         size: 10,
                         textcolor: customBalck),
-                    RatingBar.builder(
-                      itemSize: 11,
-                      initialRating: 3,
+                    AppText(
+                        text: widget.work,
+                        weight: FontWeight.w400,
+                        size: 16,
+                        textcolor: customBalck),
+                    
+                  ]),
+            ),
+            RatingBar.builder(
+                      itemSize: 20,
+                      initialRating: double.parse(widget.work),
                       minRating: 1,
                       direction: Axis.horizontal,
                       allowHalfRating: true,
@@ -108,21 +80,14 @@ class _RatingTaleState extends State<RatingTile> {
                       itemPadding: EdgeInsets.symmetric(horizontal: 1.0.w),
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
-                        color: Colors.amber,
+                        color: Color.fromARGB(255, 255, 191, 0),
                       ),
                       onRatingUpdate: (rating) {
-                        setState(() {
+                        
                           rate = rating;
-                        });
+                        
                       },
                     ),
-                    AppText(
-                        text: "${rate.toStringAsFixed(0)}/5",
-                        weight: FontWeight.w600,
-                        size: 11,
-                        textcolor: customBalck),
-                  ]),
-            ))
           ]),
         ),
       ),

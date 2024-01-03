@@ -115,6 +115,7 @@ class _AdminUserState extends State<AdminUser> {
                             ),
                             SizedBox(
                               height: 10.h,
+                              
                             ),
                             Text(userData['username'],style: GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w600),),
                             Text(userData['location'],style: GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w600),),

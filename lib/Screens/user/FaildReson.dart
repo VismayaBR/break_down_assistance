@@ -4,13 +4,20 @@ import 'package:break_down_assistance/widgets/customButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Rating.dart';
 
-class FaildScreen extends StatelessWidget {
+class FaildScreen extends StatefulWidget {
   String reason;
-  FaildScreen({super.key, required this.reason});
+  String mech_id;
+  FaildScreen({super.key, required this.reason, required this.mech_id});
 
+  @override
+  State<FaildScreen> createState() => _FaildScreenState();
+}
+
+class _FaildScreenState extends State<FaildScreen> {
   final rject_reason = TextEditingController();
 
   @override
@@ -93,6 +100,7 @@ class FaildScreen extends StatelessWidget {
                     color: Colors.amber,
                   ),
                   onRatingUpdate: (rating) {
+                    
                     print(rating);
                   },
                 ),
@@ -100,11 +108,13 @@ class FaildScreen extends StatelessWidget {
                   width: 10.w,
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
+                    SharedPreferences spref =await SharedPreferences.getInstance();
+                    var user_id = spref.getString('user_id');
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RatingScreen(),
+                          builder: (context) => RatingScreen(req_id: widget.mech_id,user_id:user_id.toString(),mech_id: widget.mech_id, ),
                         ));
                   },
                   child: const Icon(
@@ -131,7 +141,7 @@ class FaildScreen extends StatelessWidget {
             TextFormField(
               readOnly: true,
               maxLines: 5,
-              controller: TextEditingController(text: reason),
+              controller: TextEditingController(text: widget.reason),
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderSide: const BorderSide(color: customBalck),

@@ -1,12 +1,17 @@
 import 'package:break_down_assistance/constants/color.dart';
 import 'package:break_down_assistance/widgets/apptext.dart';
 import 'package:break_down_assistance/widgets/customButton.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RatingScreen extends StatefulWidget {
-  RatingScreen({super.key});
+  String req_id;
+  String user_id;
+  String mech_id;
+  RatingScreen({super.key, required this.req_id,required this.user_id, required this.mech_id, });
 
   @override
   State<RatingScreen> createState() => _RatingScreenState();
@@ -91,7 +96,9 @@ class _RatingScreenState extends State<RatingScreen> {
               color: Colors.amber,
             ),
             onRatingUpdate: (rating) {
+              print('.....................$rating');
               (rating);
+            
             },
           ),
           SizedBox(
@@ -131,11 +138,26 @@ class _RatingScreenState extends State<RatingScreen> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 120.h, horizontal: 40.w),
-            child: CustomButton(
-                btnname: "Submit",
-                btntheam: customBlue,
-                textcolor: white,
-                click: () {}),
+            child: InkWell(
+              onTap: (){
+                
+              },
+              child: CustomButton(
+                  btnname: "Submit",
+                  btntheam: customBlue,
+                  textcolor: white,
+                  click: () async {
+                    print('object');
+                   await FirebaseFirestore.instance.collection('rating').add(
+                    {
+                      'user_id' : widget.user_id,
+                      'mech_id' : widget.mech_id,
+                      'rating' : ratvalue
+                    }
+                   );
+                   Navigator.pop(context);
+                  }),
+            ),
           )
         ]),
       ),

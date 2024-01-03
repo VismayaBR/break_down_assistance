@@ -33,7 +33,7 @@ class UserMecList extends StatelessWidget {
                 return MechanicStatusTile(
                   image: "assets/men3.png",
                   name: mechanic['username'] ?? "Unknown",
-                  experience: '${mechanic['experience']} of Experience' ?? "Experience not available",
+                  experience: '${mechanic['service']}' ?? "Experience not available",
                   work: mechanic['phone'] ?? "Work not available",
                   status: true ?? false,
                   click: () {

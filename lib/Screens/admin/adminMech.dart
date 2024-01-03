@@ -35,15 +35,13 @@ class _AdminMechanicState extends State<AdminMechanic> {
         .doc(widget.id)
         .update({'status': newStatus});
 
-    // Trigger a rebuild of the UI by updating the userFuture
+    // rebuild of the UI by updating the status
     setState(() {
       userFuture = FirebaseFirestore.instance.collection('mechanic').doc(widget.id).get();
     });
 
-    // Display a success message or perform additional actions
     print('Status updated successfully');
   } catch (error) {
-    // Handle errors, e.g., display an error message
     print('Error updating status: $error');
   }
 }

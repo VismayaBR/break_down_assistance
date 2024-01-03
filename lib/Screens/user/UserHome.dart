@@ -1,3 +1,4 @@
+import 'package:break_down_assistance/Screens/common/Log.dart';
 import 'package:break_down_assistance/constants/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,10 +36,7 @@ class UserHome extends StatelessWidget {
                           builder: (context) => UserProfile(),
                         ));
                   },
-                  child: CircleAvatar(
-                    radius: 30.r,
-                    backgroundImage: const AssetImage("assets/admin.png"),
-                  ),
+                  child: Icon(Icons.account_circle_rounded,size: 20,)
                 ),
                 Flexible(
                   child: Padding(
@@ -94,7 +92,19 @@ class UserHome extends StatelessWidget {
                           )),
                     ],
                   ),
-                )
+                ),
+                SizedBox(width: 20,),
+                 InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          // go to user profile screen..
+                          builder: (context) => Login(),
+                        ));
+                  },
+                  child: Icon(Icons.power_settings_new_outlined,size: 20,)
+                ),
               ]),
             ),
           ),
