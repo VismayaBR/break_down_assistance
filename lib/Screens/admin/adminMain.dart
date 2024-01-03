@@ -1,4 +1,6 @@
+import 'package:break_down_assistance/Screens/admin/adminLogin.dart';
 import 'package:break_down_assistance/Screens/admin/userList.dart';
+import 'package:break_down_assistance/Screens/common/Log.dart';
 import 'package:break_down_assistance/constants/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,10 +17,16 @@ class AdminMain extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: CircleAvatar(
-            radius: 30.r,
-            backgroundImage: const AssetImage("assets/admin.png"),
-          ),
+          // title: CircleAvatar(
+          //   radius: 30.r,
+          //   backgroundImage: const AssetImage("assets/admin.png"),
+          // ),
+          actions: [
+            IconButton(onPressed: (){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
+              return Login();
+            }));
+          }, icon: Icon(Icons.logout_rounded))],
         ),
         backgroundColor: lightBlue,
         body: Padding(
