@@ -1,15 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/color.dart';
 import '../../widgets/apptext.dart';
 import '../../widgets/ratingTile.dart';
 
-class Rating extends StatelessWidget {
+class Rating extends StatefulWidget {
   const Rating({Key? key});
 
+  @override
+  State<Rating> createState() => _RatingState();
+}
+
+class _RatingState extends State<Rating> {
+  String mechanicId='';
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch mechanic ID from shared preferences when the page initializes
+    getMechanicIdFromSharedPreferences();
+  }
+
+  Future<void> getMechanicIdFromSharedPreferences() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      mechanicId = spref.getString('mech_id') ?? '';
+    });
+  }
+
   Future<List<Map<String, dynamic>>> getRatings() async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('rating').get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('rating').where('mech_id',isEqualTo: mechanicId).get();
     return querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
   }
 

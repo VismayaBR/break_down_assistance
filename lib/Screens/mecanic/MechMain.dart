@@ -1,3 +1,5 @@
+import 'package:break_down_assistance/Screens/common/Log.dart';
+import 'package:break_down_assistance/Screens/mecanic/EditProfile.dart';
 import 'package:break_down_assistance/constants/color.dart';
 import 'package:break_down_assistance/widgets/apptext.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class MechMain extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Profile(),
+                    builder: (context) => EditProfile(),
                   ));
             },
             child: Image.asset(
@@ -61,7 +63,20 @@ class MechMain extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
+            // SizedBox(width: 20,),
+                 InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          // go to user profile screen..
+                          builder: (context) => Login(),
+                        ));
+                  },
+                  child: Icon(Icons.power_settings_new_outlined,size: 20,)
+                ),
+                SizedBox(width: 20,),
           ],
         ),
         body: Padding(

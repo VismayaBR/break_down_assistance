@@ -1,3 +1,4 @@
+import 'package:break_down_assistance/Screens/mecanic/Forgotpassword.dart';
 import 'package:break_down_assistance/constants/color.dart';
 import 'package:break_down_assistance/widgets/apptext.dart';
 import 'package:break_down_assistance/widgets/customButton.dart';
@@ -27,6 +28,12 @@ class _MechLoginState extends State<MechLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool isLoading = false;
+   
+   var name;
+    var email;
+    var phone;
+    var exp;
+    var location;
 
   @override
   void initState() {
@@ -60,9 +67,19 @@ class _MechLoginState extends State<MechLogin> {
 
       if (mechSnapshot.docs.isNotEmpty) {
       String mechId = mechSnapshot.docs[0].id;
-      // print('.................$mechId');
+      name = mechSnapshot.docs[0]['username'];
+      phone = mechSnapshot.docs[0]['phone'];
+      email = mechSnapshot.docs[0]['email'];
+      location = mechSnapshot.docs[0]['location'];
+      exp = mechSnapshot.docs[0]['experience'];
+            // print('.................$mechId');
       SharedPreferences spref = await SharedPreferences.getInstance();
       spref.setString('mech_id', mechId);
+      spref.setString('name', name);
+      spref.setString('phone', phone);
+      spref.setString('email', email);
+      spref.setString('location', location);
+      spref.setString('exp', exp);
       Fluttertoast.showToast(msg: 'Login Successful as Mechanic');
       print('Mechanic ID: $mechId');
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
@@ -168,6 +185,26 @@ class _MechLoginState extends State<MechLogin> {
                       return null;
                     },
                   ),
+                   InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPassword(),
+                        )); // SignUp ..................................
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const AppText(
+                          text: "Forgot Password?",
+                          weight: FontWeight.w400,
+                          size: 13,
+                          textcolor: customBlue),
+                          SizedBox(width: 15,)
+                    ],
+                  ),
+                ),
                   SizedBox(
                     height: 80.h,
                   ),

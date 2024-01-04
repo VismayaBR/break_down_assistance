@@ -1,4 +1,5 @@
 import 'package:break_down_assistance/Screens/mecanic/MechHome.dart';
+import 'package:break_down_assistance/Screens/user/Forgot%20password.dart';
 import 'package:break_down_assistance/constants/color.dart';
 import 'package:break_down_assistance/widgets/apptext.dart';
 import 'package:break_down_assistance/widgets/customButton.dart';
@@ -56,8 +57,7 @@ class _UserLoginState extends State<UserLogin> {
       });
 
        final QuerySnapshot<Map<String, dynamic>> mechSnapshot =
-        await FirebaseFirestore.instance
-            .collection('users')
+        await FirebaseFirestore.instance.collection('users')
             .where('email', isEqualTo: usernameController.text)
             .where('password', isEqualTo: passwordController.text)
             .where('status', isEqualTo: 1)
@@ -189,6 +189,26 @@ class _UserLoginState extends State<UserLogin> {
                       return null;
                     },
                   ),
+                  InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPassword(),
+                        )); // SignUp ..................................
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const AppText(
+                          text: "Forgot Password?",
+                          weight: FontWeight.w400,
+                          size: 13,
+                          textcolor: customBlue),
+                          SizedBox(width: 15,)
+                    ],
+                  ),
+                ),
                   SizedBox(
                     height: 80.h,
                   ),

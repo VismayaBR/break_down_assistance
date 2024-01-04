@@ -1,20 +1,54 @@
 import 'package:break_down_assistance/constants/color.dart';
 import 'package:break_down_assistance/widgets/customButton.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/apptext.dart';
 import '../../widgets/customTextfield.dart';
 
-class EditProfile extends StatelessWidget {
+class EditProfile extends StatefulWidget {
   EditProfile({super.key});
 
-  final username = TextEditingController();
-  final phone = TextEditingController();
-  final email = TextEditingController();
-  final experience = TextEditingController();
-  final workshop = TextEditingController();
-  final location = TextEditingController();
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
+  // final username = TextEditingController();
+
+  // final phone = TextEditingController();
+
+  // final email = TextEditingController();
+
+  late TextEditingController username;
+  late TextEditingController phone;
+  late TextEditingController email;
+  late TextEditingController experience;
+  late TextEditingController location;
+
+  @override
+  void initState() {
+    super.initState();
+    username = TextEditingController();
+    phone = TextEditingController();
+    email = TextEditingController();
+    experience = TextEditingController();
+    location = TextEditingController();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      username.text = spref.getString('name') ?? '';
+      phone.text = spref.getString('phone') ?? '';
+      email.text = spref.getString('email') ?? '';
+      location.text = spref.getString('location') ?? '';
+      experience.text = spref.getString('exp') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +72,12 @@ class EditProfile extends StatelessWidget {
         child: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                const CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage(
-                    "assets/men.png",
-                  ),
-                ),
+            const CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage(
+                "assets/men.png",
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 30).r,
               child: Align(
@@ -104,19 +138,6 @@ class EditProfile extends StatelessWidget {
             Align(
               alignment: Alignment.bottomLeft,
               child: AppText(
-                  text: "Enter your work shop name",
-                  weight: FontWeight.w500,
-                  size: 16.sp,
-                  textcolor: customBalck),
-            ),
-            CustomTextField(
-                hint: "Enter your work shop name",
-                fillcolor: lightBlue,
-                controller: workshop,
-                validator: (value) {}),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: AppText(
                   text: "Enter your location",
                   weight: FontWeight.w500,
                   size: 16.sp,
@@ -135,7 +156,36 @@ class EditProfile extends StatelessWidget {
                   btnname: "Sumbit",
                   btntheam: customBlue,
                   textcolor: white,
-                  click: () {}),
+                  click: () async {
+                    SharedPreferences spref =
+                        await SharedPreferences.getInstance();
+                    var id = spref.getString('mech_id');
+                    FirebaseFirestore.instance
+                        .collection('mechanic')
+                        .doc(id)
+                        .update({
+                      'username': username.text,
+                      'phone': phone.text,
+                      'email': email.text,
+                      'experience': experience.text,
+                      'location': location.text
+                    }).then((value) async {
+                      // Successfully updated
+                      Navigator.pop(context);
+                      SharedPreferences spref =
+                          await SharedPreferences.getInstance();
+                      setState(() {
+                        spref.setString('name', username.text) ?? '';
+                        spref.setString('phone', phone.text) ?? '';
+                        spref.setString('email', email.text) ?? '';
+                        spref.setString('location', location.text) ?? '';
+                        spref.setString('exp', experience.text) ?? '';
+                      });
+                    }).catchError((error) {
+                      print('Error updating user information: $error');
+                      // Handle error, show a message, etc.
+                    });
+                  }),
             )
           ]),
         ),

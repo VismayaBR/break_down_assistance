@@ -5,6 +5,7 @@ import 'package:break_down_assistance/widgets/customTextfield.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/serviceTile.dart';
 
@@ -19,6 +20,22 @@ class _ServicesState extends State<Services> {
   final formkey = GlobalKey<FormState>();
 
   final service = TextEditingController();
+
+ String mechanicId='';
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch mechanic ID from shared preferences when the page initializes
+    getMechanicIdFromSharedPreferences();
+  }
+
+  Future<void> getMechanicIdFromSharedPreferences() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      mechanicId = spref.getString('mech_id') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +58,8 @@ class _ServicesState extends State<Services> {
       body: Padding(
           padding: const EdgeInsets.only(left: 28, right: 28, top: 20).r,
           child: FutureBuilder<QuerySnapshot>(
-              future: FirebaseFirestore.instance.collection('service').get(),
+            
+              future: FirebaseFirestore.instance.collection('service').where('mech_id',isEqualTo: mechanicId).get(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -142,9 +160,12 @@ class _ServicesState extends State<Services> {
   }
 
   Future<void> addService() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    var mech_id = spref.getString('mech_id');
     print('.........................');
     await FirebaseFirestore.instance.collection('service').add({
       'service': service.text,
+      'mech_id': mech_id
     });
     service.text='';
     Navigator.pop(context);

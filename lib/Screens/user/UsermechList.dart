@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'ServiceScreen.dart';
 
 class UserMecList extends StatelessWidget {
-  const UserMecList({Key? key});
+  final Stream<QuerySnapshot> stream;
+
+  const UserMecList({required this.stream});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class UserMecList extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(left: 34, right: 34).r,
         child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('mechanic').snapshots(),
+          stream: stream,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
@@ -27,27 +29,32 @@ class UserMecList extends StatelessWidget {
             var mechanics = snapshot.data!.docs;
 
             return ListView.builder(
+              itemCount: mechanics.length,
               itemBuilder: (context, index) {
                 var mechanic = mechanics[index].data() as Map<String, dynamic>;
 
                 return MechanicStatusTile(
                   image: "assets/men3.png",
-                  name: mechanic['username'] ?? "Unknown",
-                  experience: '${mechanic['service']}' ?? "Experience not available",
-                  work: mechanic['phone'] ?? "Work not available",
-                  status: true ?? false,
+                  name: '',
+                  experience: mechanic['username'] ?? "Experience not available",
+                  work: mechanic['service'] ?? "Work not available",
+                  status: true, // Change this to get the actual status
                   click: () {
                     // Pass relevant data to the ServiceScreen
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ServiceScreen(name:mechanic['username'],exp:mechanic['experience'],mob:mechanic['phone'],mech:mechanics[index].id),
+                        builder: (context) => ServiceScreen(
+                          name: mechanic['username'],
+                          exp: mechanic['experience'],
+                          mob: mechanic['phone'],
+                          mech: mechanics[index].id,
+                        ),
                       ),
                     );
                   },
                 );
               },
-              itemCount: mechanics.length,
             );
           },
         ),

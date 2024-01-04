@@ -61,7 +61,7 @@ class _AcceptedListState extends State<AcceptedList> {
             print('>>>>>>>>>>>>>$request');
             return AcceptTile(
               image: "assets/men.png",
-              name: request['name'] ?? "Unknown",
+              name: "",
               issue: request['issue'] ?? "Unknown",
               date: request['date'] ?? "Unknown",
               time: request['time'] ?? "Unknown",
