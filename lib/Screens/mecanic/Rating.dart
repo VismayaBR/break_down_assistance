@@ -119,7 +119,7 @@ class _RatingState extends State<Rating> {
                             image: "assets/men.png",
                             name: customerName,
                             work: ratingData['rating'].toString(),
-                            date: '',
+                            date: ratingData['feedback'].toString(),
                             time: '',
                             place: '',
                           );

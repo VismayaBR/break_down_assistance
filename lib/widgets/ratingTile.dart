@@ -42,7 +42,7 @@ class _RatingTileState extends State<RatingTile> {
           color: maincolor,
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10).r,
+          padding: const EdgeInsets.only(left: 8, right: 10).r,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -70,24 +70,34 @@ class _RatingTileState extends State<RatingTile> {
                     
                   ]),
             ),
-            RatingBar.builder(
-                      itemSize: 20,
-                      initialRating: double.parse(widget.work),
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 1.0.w),
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Color.fromARGB(255, 255, 191, 0),
-                      ),
-                      onRatingUpdate: (rating) {
-                        
-                          rate = rating;
-                        
-                      },
-                    ),
+            Column(
+
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 10,),
+                RatingBar.builder(
+                          itemSize: 20,
+                          initialRating: double.parse(widget.work),
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 1.0.w),
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Color.fromARGB(255, 255, 191, 0),
+                          ),
+                          onRatingUpdate: (rating) {
+                            
+                              rate = rating;
+                            
+                          },
+                        ),
+                        SizedBox(
+                          width: 100,
+                          child: Center(child: Text(widget.date)))
+              ],
+            ),
           ]),
         ),
       ),
