@@ -37,6 +37,7 @@ class MechanicList extends StatelessWidget {
             itemBuilder: (context, index) {
               // Access the data using mechanics[index].data() or mechanics[index]['fieldName']
               final name = mechanics[index]['username'];
+               final location = mechanics[index]['location'];
               final phone = mechanics[index]['phone'];
               final email = mechanics[index]['email'];
 
@@ -52,7 +53,7 @@ class MechanicList extends StatelessWidget {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Location: $name"),
+                        Text("Location: $location"),
                         Text("Mobile: $phone"),
                         Text("Email: $email"),
                       ],

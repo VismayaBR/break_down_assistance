@@ -64,7 +64,7 @@ class _RequestsListState extends State<RequestsList> {
 
             return RequestTile(
               image: "assets/men.png",
-              name: request['name'] ?? "Unknown",
+              name: '' ?? "Unknown",
               issue: request['issue'] ?? "Unknown",
               date: request['date'] ?? "Unknown",
               time: request['time'] ?? "Unknown",

@@ -82,7 +82,7 @@ class _UserSignupState extends State<UserSignup> {
                       CustomTextField(
                       //Custom Textfield..............
                       hint: "Enter location",
-                      controller: username,
+                      controller: location,
                       validator: (value) {
                         if (value!.isEmpty || value == null) {
                           return "enter username";  // validation............

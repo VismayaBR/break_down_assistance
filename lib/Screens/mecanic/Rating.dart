@@ -14,7 +14,7 @@ class Rating extends StatefulWidget {
 }
 
 class _RatingState extends State<Rating> {
-  String mechanicId='';
+  late String mechanicId;
 
   @override
   void initState() {
@@ -31,22 +31,22 @@ class _RatingState extends State<Rating> {
   }
 
   Future<List<Map<String, dynamic>>> getRatings() async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('rating').where('mech_id',isEqualTo: mechanicId).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('rating').where('mech_id', isEqualTo: mechanicId).get();
     return querySnapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
   }
 
-  Future<String?> getMechanicName(String mechanicId) async {
+  Future<String?> getCustomerName(String customerId) async {
     try {
-      DocumentSnapshot mechanicSnapshot = await FirebaseFirestore.instance
-          .collection('mechanic')
-          .doc(mechanicId)
+      DocumentSnapshot customerSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(customerId)
           .get();
 
-      if (mechanicSnapshot.exists) {
-        return mechanicSnapshot['username'];
+      if (customerSnapshot.exists) {
+        return customerSnapshot['username'];
       }
     } catch (error) {
-      print('Error fetching mechanic details: $error');
+      print('Error fetching customer details: $error');
     }
 
     return null;
@@ -89,11 +89,7 @@ class _RatingState extends State<Rating> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                      child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: CircularProgressIndicator(),
-                      ),
+                      child: Center(child: CircularProgressIndicator()),
                     );
                   }
 
@@ -102,27 +98,26 @@ class _RatingState extends State<Rating> {
                   }
 
                   List<Map<String, dynamic>> ratings = snapshot.data!;
+                  List<Future<String?>> customerNames = ratings.map((ratingData) {
+                    return getCustomerName(ratingData['user_id'].toString());
+                  }).toList();
 
                   return ListView.builder(
                     itemCount: ratings.length,
                     itemBuilder: (context, index) {
                       return FutureBuilder<String?>(
-                        future: getMechanicName(ratings[index]['mech_id'].toString()),
-                        builder: (context, mechanicSnapshot) {
-                          if (mechanicSnapshot.connectionState == ConnectionState.waiting) {
-                            return SizedBox(
-                              height: 30,
-                              width: 30,
-                              // child: CircularProgressIndicator(),
-                            );
+                        future: customerNames[index],
+                        builder: (context, customerSnapshot) {
+                          if (customerSnapshot.connectionState == ConnectionState.waiting) {
+                            return SizedBox();
                           }
 
+                          String customerName = customerSnapshot.data ?? 'Unknown Customer';
                           var ratingData = ratings[index];
-                          String mechanicName = mechanicSnapshot.data ?? 'Unknown Mechanic';
 
                           return RatingTile(
                             image: "assets/men.png",
-                            name: mechanicName,
+                            name: customerName,
                             work: ratingData['rating'].toString(),
                             date: '',
                             time: '',

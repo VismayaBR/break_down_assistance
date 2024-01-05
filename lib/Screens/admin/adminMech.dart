@@ -77,211 +77,213 @@ class _AdminMechanicState extends State<AdminMechanic> {
                 // Extract user data from the snapshot
                 final userData = snapshot.data?.data() ?? {};
 
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: customBalck,
-                            ),
-                          ),
-                        ),
-                        CircleAvatar(
-                          radius: 60.r,
-                          backgroundColor: lightBlue,
-                          child: Image.asset(
-                            "assets/pro.png",
-                            width: 80.w,
-                            height: 80.h,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppText(
-                          text: "Name",
-                          weight: FontWeight.w600,
-                          size: 18,
-                          textcolor: customBalck,
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        
-                        AppText(
-                          text: "Location",
-                          weight: FontWeight.w600,
-                          size: 18,
-                          textcolor: customBalck,
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: 20,
-                        bottom: 30,
-                      ).r,
-                      child: Column(
+                return SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
                         children: [
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: AppText(
-                              text: "Mechanic Username",
-                              weight: FontWeight.w500,
-                              size: 16,
-                              textcolor: customBalck,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: customBalck,
+                              ),
                             ),
                           ),
-                          CustomTextField(
-                            hint: "name",
-                            controller: TextEditingController(text: userData['username'] ?? ''),
-                            validator: (value) {},
-                            fillcolor: lightBlue,
-                            readonly: true,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: AppText(
-                              text: "Phone number",
-                              weight: FontWeight.w500,
-                              size: 16,
-                              textcolor: customBalck,
+                          CircleAvatar(
+                            radius: 60.r,
+                            backgroundColor: lightBlue,
+                            child: Image.asset(
+                              "assets/pro.png",
+                              width: 80.w,
+                              height: 80.h,
+                              fit: BoxFit.fill,
                             ),
                           ),
-                          CustomTextField(
-                            hint: "phone number",
-                            controller: TextEditingController(text: userData['phone'] ?? ''),
-                            validator: (value) {},
-                            fillcolor: lightBlue,
-                            readonly: true,
+                          SizedBox(
+                            height: 10.h,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: AppText(
-                              text: "email adders",
-                              weight: FontWeight.w500,
-                              size: 16,
-                              textcolor: customBalck,
-                            ),
+                          AppText(
+                            text: "Name",
+                            weight: FontWeight.w600,
+                            size: 18,
+                            textcolor: customBalck,
                           ),
-                          CustomTextField(
-                            hint: "email",
-                            controller: TextEditingController(text: userData['email'] ?? ''),
-                            validator: (value) {},
-                            fillcolor: lightBlue,
-                            readonly: true,
+                          SizedBox(
+                            height: 20.h,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: AppText(
-                              text: "work experience",
-                              weight: FontWeight.w500,
-                              size: 16,
-                              textcolor: customBalck,
-                            ),
-                          ),
-                          CustomTextField(
-                            hint: "work experience",
-                            controller: TextEditingController(text: userData['experience'] ?? ''),
-                            validator: (value) {},
-                            fillcolor: lightBlue,
-                            readonly: true,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: AppText(
-                              text: "workshop name",
-                              weight: FontWeight.w500,
-                              size: 16,
-                              textcolor: customBalck,
-                            ),
-                          ),
-                          CustomTextField(
-                            hint: "workshop name",
-                            controller: TextEditingController(text: userData['workshop'] ?? ''),
-                            validator: (value) {},
-                            fillcolor: lightBlue,
-                            readonly: true,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: AppText(
-                              text: "your location",
-                              weight: FontWeight.w500,
-                              size: 16,
-                              textcolor: customBalck,
-                            ),
-                          ),
-                          CustomTextField(
-                            hint: "your location",
-                            controller: TextEditingController(text: userData['location'] ?? ''),
-                            validator: (value) {},
-                            fillcolor: lightBlue,
-                            readonly: true,
+                          
+                          AppText(
+                            text: "Location",
+                            weight: FontWeight.w600,
+                            size: 18,
+                            textcolor: customBalck,
                           ),
                         ],
                       ),
-                    ),
-                    if (userData['status'] == '0') 
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomButton(
-                            btnname: "Accept",
-                            btntheam: tabcolor,
-                            textcolor: white,
-                            click: () {
-                              updateStatus(1);
-                            },
-                          ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: 20,
+                          bottom: 30,
+                        ).r,
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: AppText(
+                                text: "Mechanic Username",
+                                weight: FontWeight.w500,
+                                size: 16,
+                                textcolor: customBalck,
+                              ),
+                            ),
+                            CustomTextField(
+                              hint: "name",
+                              controller: TextEditingController(text: userData['username'] ?? ''),
+                              validator: (value) {},
+                              fillcolor: lightBlue,
+                              readonly: true,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: AppText(
+                                text: "Phone number",
+                                weight: FontWeight.w500,
+                                size: 16,
+                                textcolor: customBalck,
+                              ),
+                            ),
+                            CustomTextField(
+                              hint: "phone number",
+                              controller: TextEditingController(text: userData['phone'] ?? ''),
+                              validator: (value) {},
+                              fillcolor: lightBlue,
+                              readonly: true,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: AppText(
+                                text: "email adders",
+                                weight: FontWeight.w500,
+                                size: 16,
+                                textcolor: customBalck,
+                              ),
+                            ),
+                            CustomTextField(
+                              hint: "email",
+                              controller: TextEditingController(text: userData['email'] ?? ''),
+                              validator: (value) {},
+                              fillcolor: lightBlue,
+                              readonly: true,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: AppText(
+                                text: "work experience",
+                                weight: FontWeight.w500,
+                                size: 16,
+                                textcolor: customBalck,
+                              ),
+                            ),
+                            CustomTextField(
+                              hint: "work experience",
+                              controller: TextEditingController(text: userData['experience'] ?? ''),
+                              validator: (value) {},
+                              fillcolor: lightBlue,
+                              readonly: true,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: AppText(
+                                text: "workshop name",
+                                weight: FontWeight.w500,
+                                size: 16,
+                                textcolor: customBalck,
+                              ),
+                            ),
+                            CustomTextField(
+                              hint: "workshop name",
+                              controller: TextEditingController(text: userData['workshop'] ?? ''),
+                              validator: (value) {},
+                              fillcolor: lightBlue,
+                              readonly: true,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: AppText(
+                                text: "your location",
+                                weight: FontWeight.w500,
+                                size: 16,
+                                textcolor: customBalck,
+                              ),
+                            ),
+                            CustomTextField(
+                              hint: "your location",
+                              controller: TextEditingController(text: userData['location'] ?? ''),
+                              validator: (value) {},
+                              fillcolor: lightBlue,
+                              readonly: true,
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: CustomButton(
-                            btnname: "reject",
-                            btntheam: lightred,
-                            textcolor: white,
-                            click: () {
-                              updateStatus(2);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                     if (userData['status'] == 1) // Display only if status is Approved (1)
-                      CustomButton(
-                        btnname: "Approved",
-                        btntheam: Colors.green,
-                        textcolor: white,
-                        click: () {
-                          // Handle the action when the Approved button is clicked
-                          // For example, navigate to a new screen
-                        },
                       ),
-                    if (userData['status'] == 2) // Display only if status is Rejected (2)
-                      CustomButton(
-                        btnname: "Rejected",
-                        btntheam: Colors.red,
-                        textcolor: white,
-                        click: () {
-                          // Handle the action when the Rejected button is clicked
-                          // For example, navigate to a new screen
-                        },
+                      if (userData['status'] == '0') 
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomButton(
+                              btnname: "Accept",
+                              btntheam: tabcolor,
+                              textcolor: white,
+                              click: () {
+                                updateStatus(1);
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: CustomButton(
+                              btnname: "reject",
+                              btntheam: lightred,
+                              textcolor: white,
+                              click: () {
+                                updateStatus(2);
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                
-                  ],
+                       if (userData['status'] == 1) // Display only if status is Approved (1)
+                        CustomButton(
+                          btnname: "Approved",
+                          btntheam: Colors.green,
+                          textcolor: white,
+                          click: () {
+                            // Handle the action when the Approved button is clicked
+                            // For example, navigate to a new screen
+                          },
+                        ),
+                      if (userData['status'] == 2) // Display only if status is Rejected (2)
+                        CustomButton(
+                          btnname: "Rejected",
+                          btntheam: Colors.red,
+                          textcolor: white,
+                          click: () {
+                            // Handle the action when the Rejected button is clicked
+                            // For example, navigate to a new screen
+                          },
+                        ),
+                  
+                    ],
+                  ),
                 );
               },
             ),

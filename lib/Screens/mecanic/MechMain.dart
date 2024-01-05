@@ -91,7 +91,7 @@ class MechMain extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10).r,
                     color: lightBlue),
                 child: TabBar(
-                  // Tab Bar...........
+                  
                   tabs: const [
                     Tab(
                         child: AppText(
