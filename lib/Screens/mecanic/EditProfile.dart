@@ -153,7 +153,7 @@ class _EditProfileState extends State<EditProfile> {
                       top: 30, left: 40, right: 40, bottom: 50)
                   .r,
               child: CustomButton(
-                  btnname: "Sumbit",
+                  btnname: "Submit",
                   btntheam: customBlue,
                   textcolor: white,
                   click: () async {
