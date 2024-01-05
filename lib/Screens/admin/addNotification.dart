@@ -1,3 +1,4 @@
+import 'package:break_down_assistance/Screens/admin/adminHome.dart';
 import 'package:break_down_assistance/Screens/admin/notification.dart';
 import 'package:break_down_assistance/constants/color.dart';
 import 'package:break_down_assistance/widgets/apptext.dart';
@@ -34,7 +35,7 @@ class _AddNotificationState extends State<AddNotification> {
       'time':tm1
     });
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return NotificationScreen();
+      return AdminHome();
     }));
   }
 
